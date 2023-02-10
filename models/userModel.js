@@ -28,7 +28,12 @@ var userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "user"
-  }
+  },
+  cart: {
+    type: Array,
+    default: [],
+  },
+  
 });
 
 // Password = jadi > "$87264872bhdsbvskbksccskhdds" gitu
