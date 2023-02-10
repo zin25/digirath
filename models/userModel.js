@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
     unique: true,
   },
   mobile: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
@@ -25,6 +25,10 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: "user"
+  }
 });
 
 // Password = jadi > "$87264872bhdsbvskbksccskhdds" gitu
