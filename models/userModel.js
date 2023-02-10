@@ -5,7 +5,6 @@ var userSchema = new mongoose.Schema({
   namadepan: {
     type: String,
     required: true,
-
   },
   namabelakang: {
     type: String,
@@ -17,7 +16,7 @@ var userSchema = new mongoose.Schema({
     unique: true,
   },
   mobile: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },
