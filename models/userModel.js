@@ -2,39 +2,45 @@ const mongoose = require('mongoose'); // Erase if already required
 const bcrypt = require('bcrypt');
 
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
-  namadepan: {
-    type: String,
-    required: true,
+var userSchema = new mongoose.Schema(
+  {
+    namadepan: {
+      type: String,
+      required: true,
+    },
+    namabelakang: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      default: "user",
+    },
+    cart: {
+      type: Array,
+      default: [],
+    },
+    address: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   },
-  namabelakang: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  mobile: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    default: "user"
-  },
-  cart: {
-    type: Array,
-    default: [],
-  },
-  
-});
+  {
+    timestamps: true,
+  }
+);
 
 // Password = jadi > "$87264872bhdsbvskbksccskhdds" gitu
 userSchema.pre('save', async function(next){

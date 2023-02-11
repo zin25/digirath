@@ -1,6 +1,6 @@
 const User = require('../models/userModel')
 const asyncHandler = require('express-async-handler');
-const generateToken = require('../config/jwtToken');
+const generateToken = require("../config/jwtToken");
 
 // Buat User Baru
 const createUser = asyncHandler(async (req, res) => {
@@ -26,7 +26,7 @@ const loginUser = asyncHandler(async (req, res) => {
       namabelakang: findUser?.namabelakang,
       email: findUser?.email,
       mobile: findUser?.mobile,
-      token: generateToken(findUser?.token?._id),
+      token: generateToken(findUser?._id),
     });
   } else {
     throw new Error('Username atau Password salah')
@@ -71,9 +71,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // Update User
 const updatedUser = asyncHandler(async (req, res) => {
-  const {id} = req.params
+  const {_id} = req.user
   try {
-    const updatedUser = await User.findByIdAndUpdate(id,{
+    const updatedUser = await User.findByIdAndUpdate(_id,{
       namadepan: req?.body?.namadepan,
       namabelakang: req?.body?.namabelakang,
       email: req?.body?.email,
