@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 const asyncHandler = require('express-async-handler');
 const generateToken = require("../config/jwtToken");
 const validateMongoDbId = require('../utils/validateMongoDbId');
+const {generateRefreshToken} = require('../config/refreshToken');
 
 // Buat User Baru
 const createUser = asyncHandler(async (req, res) => {
@@ -21,6 +22,14 @@ const loginUser = asyncHandler(async (req, res) => {
   const {email, password} = req.body;
   const findUser = await User.findOne({email});
   if (findUser && await findUser.isPasswordMatched(password)) {
+    const refreshToken = await generateRefreshToken(findUser?._id)
+    const updateuser = await User.findByIdAndUpdate(findUser.id, {
+      refreshToken: refreshToken
+    },{ new: true})
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 72 * 60 * 60 * 1000
+    })
     res.json({
       _id: findUser?._id,
       namadepan: findUser?.namadepan,
@@ -34,6 +43,13 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 })
 // End function login
+
+// Handle refresh Token
+const handleRefreshToken = asyncHandler(async (req, res) => {
+
+})
+
+// End handle refresh Token
 
 // Get All Users
 const getAllUser = asyncHandler(async (req, res) => {
@@ -123,7 +139,7 @@ const unblockUser = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(unblockUser)
+      res.json(unblock)
     } catch (error) {
       throw new Error(error);
     }
