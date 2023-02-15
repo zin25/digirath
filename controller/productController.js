@@ -16,6 +16,35 @@ const createProduct = asyncHandler(async (req, res) => {
 })
 // end function new Product
 
+// Update product
+const updateProduct = asyncHandler(async (req, res) => {
+    const id = req.params;
+    try {
+        if(req.body.title){
+            req.body.slug = slugify(req.body.title)
+        }
+        const updateProduct = await Product.findOneAndUpdate({id}, req.body, {
+            new: true,
+        })
+        res.json(updateProduct);
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+// End Function Add Product
+
+// Delete Product
+const deleteProduct = asyncHandler(async (req, res) => {
+  const id = req.params;
+  try {
+    const deleteProduct = await Product.findOneAndDelete(id)
+    res.json(deleteProduct)
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+// End Function Delete Product
+
 // Get A Product
 const getaProduct = asyncHandler(async (req, res) => {
     const { id } = req.params
@@ -40,4 +69,10 @@ const getAllProduct = asyncHandler(async (req, res) => {
 
 // end function get all products
 
-module.exports = { createProduct, getaProduct, getAllProduct };
+module.exports = {
+  createProduct,
+  getaProduct,
+  getAllProduct,
+  updateProduct,
+  deleteProduct,
+};
