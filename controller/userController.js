@@ -181,6 +181,22 @@ const unblockUser = asyncHandler(async (req, res) => {
   });
 // End Block or Ublock Function
 
+// Reset Password
+const updatePassword = asyncHandler(async (req, res) => {
+  const {_id} = req.user;
+  const {password} = req.body;
+  validateMongoDbId(_id);
+  const user = await User.findById(_id)
+  if (password) {
+    user.password = password;
+    const updatedPassword = await user.save()
+    res.json(updatedPassword);
+  } else {
+    res.json(user)
+  }
+});
+// End reset password
+
 module.exports = {
   createUser,
   loginUser,
@@ -191,5 +207,6 @@ module.exports = {
   blockUser,
   unblockUser,
   handleRefreshToken,
-  logout
+  logout,
+  updatePassword,
 };
