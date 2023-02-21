@@ -9,6 +9,8 @@ const authUserRouter = require("./routes/authUserRoute");
 const productRouter = require("./routes/productRoute");
 const blogRouter = require("./routes/blogRoute");
 const prodCategoryRouter = require("./routes/prodCategoryRoute");
+const blogCategoryRouter = require("./routes/blogCategoryRoute");
+const brandRouter = require("./routes/brandRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 dbConnect();
@@ -22,6 +24,8 @@ app.use("/api/user", authUserRouter); // Base Url : http://localhost:8000/api/us
 app.use("/api/product", productRouter); // Base url : Product localhost:8000/api/product/?
 app.use("/api/blog", blogRouter); // Base url : Blog localhost:8000/api/blog/?
 app.use("/api/category", prodCategoryRouter); // Base url : Category localhost:8000/api/category/?
+app.use("/api/blogcategory", blogCategoryRouter); // Base url : Category blog localhost:8000/api/blogcategory/?
+app.use("/api/brand", brandRouter); // Base url : Brand : http://localhost:8000/api/brand
 
 // Middleware
 app.use(notFound);
