@@ -11,6 +11,7 @@ const blogRouter = require("./routes/blogRoute");
 const prodCategoryRouter = require("./routes/prodCategoryRoute");
 const blogCategoryRouter = require("./routes/blogCategoryRoute");
 const brandRouter = require("./routes/brandRoute");
+const couponRouter = require("./routes/couponRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 dbConnect();
@@ -26,6 +27,7 @@ app.use("/api/blog", blogRouter); // Base url : Blog localhost:8000/api/blog/?
 app.use("/api/category", prodCategoryRouter); // Base url : Category localhost:8000/api/category/?
 app.use("/api/blogcategory", blogCategoryRouter); // Base url : Category blog localhost:8000/api/blogcategory/?
 app.use("/api/brand", brandRouter); // Base url : Brand : http://localhost:8000/api/brand
+app.use("/api/coupon", couponRouter); // Base url : Brand : http://localhost:8000/api/coupon/?
 
 // Middleware
 app.use(notFound);
